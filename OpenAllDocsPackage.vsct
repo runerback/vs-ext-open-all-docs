@@ -18,14 +18,14 @@
 			<Button guid="guidOpenAllDocsUnderProjectPackageCmdSet" id="cmdidOpenAllDocsUnderProjectCommand" priority="0x0100" type="Button">
 				<Parent guid="guidOpenAllDocsUnderProjectPackageCmdSet" id="OpenAllDocsUnderProjectMenuGroup" />
 				<Strings>
-					<ButtonText>Open&amp;All...</ButtonText>
+					<ButtonText>Open &amp;All...</ButtonText>
 				</Strings>
 			</Button>
 
 			<Button guid="guidOpenAllDocsUnderFolderPackageCmdSet" id="cmdidOpenAllDocsUnderFolderCommand" priority="0x0100" type="Button">
 				<Parent guid="guidOpenAllDocsUnderFolderPackageCmdSet" id="OpenAllDocsUnderFolderMenuGroup" />
 				<Strings>
-					<ButtonText>Open&amp;All...</ButtonText>
+					<ButtonText>Open &amp;All...</ButtonText>
 				</Strings>
 			</Button>
 		</Buttons>
