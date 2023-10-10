@@ -8,7 +8,7 @@ namespace OpenAllDocs.Services
 {
     internal sealed class OpenAllDocsUnderFolderService : OpenAllDocsService
     {
-        protected override IEnumerable<string> UnderlyingDocumentIterator(SelectedItem source)
+        protected override IEnumerable<IDocumentItem> UnderlyingDocumentIterator(SelectedItem source)
         {
             foreach (var projectItem in ProjectItemIterator(source.ProjectItem))
             {
@@ -24,7 +24,7 @@ namespace OpenAllDocs.Services
                     continue;
                 }
 
-                yield return fullpath;
+                yield return new DocumentItemUnderFolder(projectItem, fullpath);
             }
         }
 
@@ -42,6 +42,32 @@ namespace OpenAllDocs.Services
                 foreach (var next in ProjectItemIterator(innerItem))
                 {
                     yield return next;
+                }
+            }
+        }
+
+        private sealed class DocumentItemUnderFolder : IDocumentItem
+        {
+            private readonly ProjectItem _source;
+
+            public DocumentItemUnderFolder(ProjectItem source, string fullpath)
+            {
+                _source = source;
+                FullPath = fullpath;
+            }
+
+            public string FullPath { get; }
+
+            public void Open()
+            {
+                if (!_source.IsOpen)
+                {
+                    if (_source.Document == null)
+                    {
+                        _source.Open();
+                    }
+
+                    _source.Document.Activate();
                 }
             }
         }

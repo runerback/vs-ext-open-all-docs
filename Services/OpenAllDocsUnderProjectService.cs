@@ -8,7 +8,7 @@ namespace OpenAllDocs.Services
 {
     internal sealed class OpenAllDocsUnderProjectService : OpenAllDocsService
     {
-        protected override IEnumerable<string> UnderlyingDocumentIterator(SelectedItem source)
+        protected override IEnumerable<IDocumentItem> UnderlyingDocumentIterator(SelectedItem source)
         {
             var project = source.Project;
             if (project == null || project.ProjectItems.Count == 0)
@@ -32,7 +32,7 @@ namespace OpenAllDocs.Services
                         continue;
                     }
 
-                    yield return fullpath;
+                    yield return new DocumentItemUnderProject(projectItem, fullpath);
                 }
             }
         }
@@ -51,6 +51,32 @@ namespace OpenAllDocs.Services
                 foreach (var next in ProjectItemIterator(innerItem))
                 {
                     yield return next;
+                }
+            }
+        }
+
+        private sealed class DocumentItemUnderProject : IDocumentItem
+        {
+            private readonly ProjectItem _source;
+
+            public DocumentItemUnderProject(ProjectItem source, string fullpath)
+            {
+                _source = source;
+                FullPath = fullpath;
+            }
+
+            public string FullPath { get; }
+
+            public void Open()
+            {
+                if (!_source.IsOpen)
+                {
+                    if (_source.Document == null)
+                    {
+                        _source.Open();
+                    }
+
+                    _source.Document.Activate();
                 }
             }
         }

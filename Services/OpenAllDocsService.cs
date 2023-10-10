@@ -2,7 +2,6 @@
 using EnvDTE80;
 using System.Collections.Generic;
 using System.Linq;
-using KnwonCommands = OpenAllDocs.Constants.ProjectItem.Commands;
 
 namespace OpenAllDocs.Services
 {
@@ -15,26 +14,20 @@ namespace OpenAllDocs.Services
                 return;
             }
 
-            var openFileCommand = dte.Commands.OfType<Command>()
-                .FirstOrDefault(it => it.Name == KnwonCommands.File.OpenFile);
-            if (openFileCommand == null || !openFileCommand.IsAvailable)
-            {
-                return;
-            }
-
             var documents = dte.SelectedItems
                 .OfType<SelectedItem>()
                 .SelectMany(UnderlyingDocumentIterator)
-                .Distinct()
-                .OrderBy(it => it);
+                .GroupBy(it => it.FullPath)
+                .Select(it => it.First())
+                .OrderBy(it => it.FullPath);
 
             foreach (var document in documents)
             {
-                dte.ExecuteCommand(KnwonCommands.File.OpenFile, document);
+                document.Open();
             }
         }
 
-        protected abstract IEnumerable<string> UnderlyingDocumentIterator(SelectedItem source);
+        protected abstract IEnumerable<IDocumentItem> UnderlyingDocumentIterator(SelectedItem source);
 
         protected static IReadOnlyCollection<string> PropertyKeys(ProjectItem source)
         {
