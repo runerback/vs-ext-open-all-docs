@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<Extern href="stdidcmd.h" />
+	<Extern href="vsshlids.h" />
+
+	<Commands package="guidOpenAllDocsPackage">
+		<Groups>
+			<Group guid="guidOpenAllDocsUnderProjectPackageCmdSet" id="OpenAllDocsUnderProjectMenuGroup" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
+			</Group>
+
+			<Group guid="guidOpenAllDocsUnderFolderPackageCmdSet" id="OpenAllDocsUnderFolderMenuGroup" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE" />
+			</Group>
+		</Groups>
+
+		<Buttons>
+			<Button guid="guidOpenAllDocsUnderProjectPackageCmdSet" id="cmdidOpenAllDocsUnderProjectCommand" priority="0x0100" type="Button">
+				<Parent guid="guidOpenAllDocsUnderProjectPackageCmdSet" id="OpenAllDocsUnderProjectMenuGroup" />
+				<Strings>
+					<ButtonText>Open&amp;All...</ButtonText>
+				</Strings>
+			</Button>
+
+			<Button guid="guidOpenAllDocsUnderFolderPackageCmdSet" id="cmdidOpenAllDocsUnderFolderCommand" priority="0x0100" type="Button">
+				<Parent guid="guidOpenAllDocsUnderFolderPackageCmdSet" id="OpenAllDocsUnderFolderMenuGroup" />
+				<Strings>
+					<ButtonText>Open&amp;All...</ButtonText>
+				</Strings>
+			</Button>
+		</Buttons>
+	</Commands>
+
+	<Symbols>
+		<!-- This is the package guid. -->
+		<GuidSymbol name="guidOpenAllDocsPackage" value="{289742e9-5792-4856-a39c-44205ce50ba3}" />
+
+		<GuidSymbol value="{cbf06481-f299-4271-886f-2d4e4950f2f7}" name="guidOpenAllDocsUnderProjectPackageCmdSet">
+			<IDSymbol value="4128" name="OpenAllDocsUnderProjectMenuGroup" />
+			<IDSymbol value="0x500A" name="cmdidOpenAllDocsUnderProjectCommand" />
+		</GuidSymbol>
+
+		<GuidSymbol value="{8b96e8dc-095e-4cb8-8df4-cebd3039f9fc}" name="guidOpenAllDocsUnderFolderPackageCmdSet">
+			<IDSymbol value="4128" name="OpenAllDocsUnderFolderMenuGroup" />
+			<IDSymbol value="0x500B" name="cmdidOpenAllDocsUnderFolderCommand" />
+		</GuidSymbol>
+	</Symbols>
+
+</CommandTable>
